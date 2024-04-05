@@ -4,8 +4,8 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"dev": "nodemon backend/server.js",
-		"start": "node backend/server.js",
+		"dev": "NODE_ENV=development nodemon backend/server.js",
+		"start": "NODE_ENV=production node backend/server.js",
 		"client": "cd frontend && npm run dev",
 		"clear-console": "cls",
 		"fullDev": "concurrently -n \"client,server\" -c \"bgBlue,bgGreen\" \"npm run clear-console && npm run client\" \"npm run clear-console && npm run dev\"",
