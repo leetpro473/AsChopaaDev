@@ -59,7 +59,7 @@ export default function LoginCard() {
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
 				<Stack align={"center"}>
 					<Heading fontSize={"4xl"} textAlign={"center"}>
-						Login
+						Entrar
 					</Heading>
 				</Stack>
 				<Box
@@ -74,7 +74,7 @@ export default function LoginCard() {
 				>
 					<Stack spacing={4}>
 						<FormControl isRequired>
-							<FormLabel>Username</FormLabel>
+							<FormLabel>Usuário</FormLabel>
 							<Input
 								type='text'
 								value={inputs.username}
@@ -82,7 +82,7 @@ export default function LoginCard() {
 							/>
 						</FormControl>
 						<FormControl isRequired>
-							<FormLabel>Password</FormLabel>
+							<FormLabel>Senha</FormLabel>
 							<InputGroup>
 								<Input
 									type={showPassword ? "text" : "password"}
@@ -111,14 +111,14 @@ export default function LoginCard() {
 								onClick={handleLogin}
 								isLoading={loading}
 							>
-								Login
+								Entrar
 							</Button>
 						</Stack>
 						<Stack pt={6}>
 							<Text align={"center"}>
-								Don&apos;t have an account?{" "}
+								Não tem uma conta?{" "}
 								<Link color={"blue.400"} onClick={() => setAuthScreen("signup")}>
-									Sign up
+									Registrar
 								</Link>
 							</Text>
 						</Stack>
