@@ -62,7 +62,7 @@ export default function SignupCard() {
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
 				<Stack align={"center"}>
 					<Heading fontSize={"4xl"} textAlign={"center"}>
-						Sign up
+						Registrar
 					</Heading>
 				</Stack>
 				<Box rounded={"lg"} bg={useColorModeValue("white", "gray.dark")} boxShadow={"lg"} p={8}>
@@ -70,7 +70,7 @@ export default function SignupCard() {
 						<HStack>
 							<Box>
 								<FormControl isRequired>
-									<FormLabel>Full name</FormLabel>
+									<FormLabel>Nome Completo</FormLabel>
 									<Input
 										type='text'
 										onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
@@ -90,7 +90,7 @@ export default function SignupCard() {
 							</Box>
 						</HStack>
 						<FormControl isRequired>
-							<FormLabel>Email address</FormLabel>
+							<FormLabel>Email</FormLabel>
 							<Input
 								type='email'
 								onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
@@ -98,7 +98,7 @@ export default function SignupCard() {
 							/>
 						</FormControl>
 						<FormControl isRequired>
-							<FormLabel>Password</FormLabel>
+							<FormLabel>Senha</FormLabel>
 							<InputGroup>
 								<Input
 									type={showPassword ? "text" : "password"}
@@ -126,14 +126,14 @@ export default function SignupCard() {
 								}}
 								onClick={handleSignup}
 							>
-								Sign up
+								Registrar
 							</Button>
 						</Stack>
 						<Stack pt={6}>
 							<Text align={"center"}>
-								Already a user?{" "}
+								Já tem uma conta?{" "}
 								<Link color={"blue.400"} onClick={() => setAuthScreen("login")}>
-									Login
+									Entrar
 								</Link>
 							</Text>
 						</Stack>
