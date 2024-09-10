@@ -8,7 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
 	cors: {
-		origin: "https://aschopaa.com.br:3000",
+		origin: "http://aschopaa.com.br:3000",
 		methods: ["GET", "POST"],
 	},
 });
