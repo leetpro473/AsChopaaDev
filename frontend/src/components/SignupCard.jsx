@@ -73,8 +73,8 @@ export default function SignupCard() {
 									<FormLabel>Nome de Usuário</FormLabel>
 									<Input
 										type='text'
-										onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
-										value={inputs.name}
+										onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+										value={inputs.username}
 									/>
 								</FormControl>
 							</Box>
@@ -83,8 +83,8 @@ export default function SignupCard() {
 									<FormLabel>Nome Completo</FormLabel>
 									<Input
 										type='text'
-										onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
-										value={inputs.username}
+										onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+										value={inputs.name}
 									/>
 								</FormControl>
 							</Box>
