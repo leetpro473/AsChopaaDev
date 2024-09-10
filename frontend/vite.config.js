@@ -9,7 +9,7 @@ export default defineConfig({
 		// Get rid of the CORS error
 		proxy: {
 			"/api": {
-				target: "http://localhost:4000",
+				target: "http://aschopaa.com.br:4000",
 				changeOrigin: true,
 				secure: false,
 			},
