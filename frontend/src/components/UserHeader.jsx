@@ -107,7 +107,7 @@ const UserHeader = ({ user }) => {
 
 			<Flex w={"full"}>
 				<Flex flex={1} borderBottom={"1.5px solid white"} justifyContent={"center"} pb='3' cursor={"pointer"}>
-					<Text fontWeight={"bold"}> Reliquia</Text>
+					<Text fontWeight={"bold"}> Todos os direitos Reservados</Text>
 				</Flex>
 				{/* <Flex
 					flex={1}
