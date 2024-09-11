@@ -8,67 +8,59 @@ import useGetUserProfile from "../hooks/useGetUserProfile";
 import { useRecoilState } from "recoil";
 import postsAtom from "../atoms/postsAtom";
 
-// Lista de usernames para os quais o ícone de verificação deve ser exibido
-const VERIFIED_USERNAMES = ['user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'user7', 'user8'];
-
 const UserPage = () => {
-    const { user, loading } = useGetUserProfile();
-    const { username } = useParams();
-    const showToast = useShowToast();
-    const [posts, setPosts] = useRecoilState(postsAtom);
-    const [fetchingPosts, setFetchingPosts] = useState(true);
+	const { user, loading } = useGetUserProfile();
+	const { username } = useParams();
+	const showToast = useShowToast();
+	const [posts, setPosts] = useRecoilState(postsAtom);
+	const [fetchingPosts, setFetchingPosts] = useState(true);
 
-    useEffect(() => {
-        const getPosts = async () => {
-            if (!user) return;
-            setFetchingPosts(true);
-            try {
-                const res = await fetch(`/api/posts/user/${username}`);
-                const data = await res.json();
-                setPosts(data);
-            } catch (error) {
-                showToast("Error", error.message, "error");
-                setPosts([]);
-            } finally {
-                setFetchingPosts(false);
-            }
-        };
+	useEffect(() => {
+		const getPosts = async () => {
+			if (!user) return;
+			setFetchingPosts(true);
+			try {
+				const res = await fetch(`/api/posts/user/${username}`);
+				const data = await res.json();
+				console.log(data);
+				setPosts(data);
+			} catch (error) {
+				showToast("Error", error.message, "error");
+				setPosts([]);
+			} finally {
+				setFetchingPosts(false);
+			}
+		};
 
-        getPosts();
-    }, [username, showToast, setPosts, user]);
+		getPosts();
+	}, [username, showToast, setPosts, user]);
 
-    if (!user && loading) {
-        return (
-            <Flex justifyContent={"center"}>
-                <Spinner size={"xl"} />
-            </Flex>
-        );
-    }
+	if (!user && loading) {
+		return (
+			<Flex justifyContent={"center"}>
+				<Spinner size={"xl"} />
+			</Flex>
+		);
+	}
 
-    if (!user && !loading) return <h1>Usuário não encontrado</h1>;
+	if (!user && !loading) return <h1>Usuário não encontrado</h1>;
 
-    return (
-        <>
-            <UserHeader user={user} />
+	return (
+		<>
+			<UserHeader user={user} />
 
-            {fetchingPosts ? (
-                <Flex justifyContent={"center"} my={12}>
-                    <Spinner size={"xl"} />
-                </Flex>
-            ) : posts.length === 0 ? (
-                <h1>O usuário não possui publicações</h1>
-            ) : (
-                posts.map((post) => (
-                    <Post
-                        key={post._id}
-                        post={post}
-                        postedBy={post.postedBy}
-                        verifiedUsernames={VERIFIED_USERNAMES}
-                    />
-                ))
-            )}
-        </>
-    );
+			{!fetchingPosts && posts.length === 0 && <h1>O usuário não possui publicações</h1>}
+			{fetchingPosts && (
+				<Flex justifyContent={"center"} my={12}>
+					<Spinner size={"xl"} />
+				</Flex>
+			)}
+
+			{posts.map((post) => (
+				<Post key={post._id} post={post} postedBy={post.postedBy} />
+			))}
+		</>
+	);
 };
 
 export default UserPage;
