@@ -1,6 +1,5 @@
 import { Avatar, Box, Button, Divider, Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import Actions from "../components/Actions";
-import { useEffect } from "react";
 import Comment from "../components/Comment";
 import useGetUserProfile from "../hooks/useGetUserProfile";
 import useShowToast from "../hooks/useShowToast";
@@ -15,11 +14,11 @@ import postsAtom from "../atoms/postsAtom";
 const VERIFIED_USERNAMES = ['luischavoso.7'];
 
 const PostPage = () => {
-    const { user, loading } = useGetUserProfile();
+    const { user, loading } = useGetUserProfile(); // Hook para obter o perfil do usuário
     const [posts, setPosts] = useRecoilState(postsAtom);
     const showToast = useShowToast();
     const { pid } = useParams();
-    const currentUser = useRecoilValue(userAtom);
+    const currentUser = useRecoilValue(userAtom); // Usuário atual do estado global
     const navigate = useNavigate();
 
     const currentPost = posts.find(post => post._id === pid); // Obtém o post atual pela ID
@@ -76,7 +75,7 @@ const PostPage = () => {
             <Flex>
                 <Flex w={"full"} alignItems={"center"} gap={3}>
                     <Avatar src={user.profilePic} size={"md"} name={user.username} />
-                    <Flex>
+                    <Flex alignItems={"center"}>
                         <Text fontSize={"sm"} fontWeight={"bold"}>
                             {user.username}
                         </Text>
