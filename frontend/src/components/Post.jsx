@@ -12,7 +12,7 @@ import userAtom from "../atoms/userAtom";
 import postsAtom from "../atoms/postsAtom";
 
 // Lista de usernames para os quais o ícone de verificação deve ser exibido
-const VERIFIED_USERNAMES = ['luischavoso.7', 'anotherUser', 'moreUsers']; 
+const VERIFIED_USERNAMES = ['luischavoso.7']; 
 
 const Post = ({ post, postedBy }) => {
 	const [user, setUser] = useState(null);
