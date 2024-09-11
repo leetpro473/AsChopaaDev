@@ -19,9 +19,9 @@ const UserHeader = ({ user }) => {
 		const currentURL = window.location.href;
 		navigator.clipboard.writeText(currentURL).then(() => {
 			toast({
-				title: "Successo.",
+				title: "Success.",
 				status: "success",
-				description: "Link do perfil copiado.",
+				description: "Profile link copied.",
 				duration: 3000,
 				isClosable: true,
 			});
@@ -38,7 +38,7 @@ const UserHeader = ({ user }) => {
 					<Flex gap={2} alignItems={"center"}>
 						<Text fontSize={"sm"}>{user.username}</Text>
 						<Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
-							aschopaa.com.br
+							threads.net
 						</Text>
 					</Flex>
 				</Box>
@@ -70,19 +70,19 @@ const UserHeader = ({ user }) => {
 
 			{currentUser?._id === user._id && (
 				<Link as={RouterLink} to='/update'>
-					<Button size={"sm"}>Atualizar perfil</Button>
+					<Button size={"sm"}>Update Profile</Button>
 				</Link>
 			)}
 			{currentUser?._id !== user._id && (
 				<Button size={"sm"} onClick={handleFollowUnfollow} isLoading={updating}>
-					{following ? "Parar de Seguir" : "Seguir"}
+					{following ? "Unfollow" : "Follow"}
 				</Button>
 			)}
 			<Flex w={"full"} justifyContent={"space-between"}>
 				<Flex gap={2} alignItems={"center"}>
 					<Text color={"gray.light"}>{user.followers.length} followers</Text>
 					<Box w='1' h='1' bg={"gray.light"} borderRadius={"full"}></Box>
-					<Link color={"gray.light"}>aschopaa.com.br</Link>
+					<Link color={"gray.light"}>instagram.com</Link>
 				</Flex>
 				<Flex>
 					<Box className='icon-container'>
@@ -96,7 +96,7 @@ const UserHeader = ({ user }) => {
 							<Portal>
 								<MenuList bg={"gray.dark"}>
 									<MenuItem bg={"gray.dark"} onClick={copyURL}>
-										Copiar link
+										Copy link
 									</MenuItem>
 								</MenuList>
 							</Portal>
@@ -107,7 +107,7 @@ const UserHeader = ({ user }) => {
 
 			<Flex w={"full"}>
 				<Flex flex={1} borderBottom={"1.5px solid white"} justifyContent={"center"} pb='3' cursor={"pointer"}>
-					<Text fontWeight={"bold"}> ReliquiaAPP</Text>
+					<Text fontWeight={"bold"}> Threads</Text>
 				</Flex>
 				{/* <Flex
 					flex={1}
