@@ -8,6 +8,9 @@ import useGetUserProfile from "../hooks/useGetUserProfile";
 import { useRecoilState } from "recoil";
 import postsAtom from "../atoms/postsAtom";
 
+// Lista de usernames para os quais o ícone de verificação deve ser exibido
+const VERIFIED_USERNAMES = ['luischavoso.7'];
+
 const UserPage = () => {
     const { user, loading } = useGetUserProfile();
     const { username } = useParams();
@@ -56,7 +59,12 @@ const UserPage = () => {
                 <h1>O usuário não possui publicações</h1>
             ) : (
                 posts.map((post) => (
-                    <Post key={post._id} post={post} postedBy={post.postedBy} />
+                    <Post
+                        key={post._id}
+                        post={post}
+                        postedBy={post.postedBy}
+                        verifiedUsernames={VERIFIED_USERNAMES}
+                    />
                 ))
             )}
         </>
