@@ -83,7 +83,7 @@ const PostPage = () => {
 				</Flex>
 				<Flex gap={4} alignItems={"center"}>
 					<Text fontSize={"xs"} width={36} textAlign={"right"} color={"gray.light"}>
-						{formatDistanceToNow(new Date(currentPost.createdAt))} ago
+						{formatDistanceToNow(new Date(currentPost.createdAt))} atrás
 					</Text>
 
 					{currentUser?._id === user._id && (
