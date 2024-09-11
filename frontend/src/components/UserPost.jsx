@@ -1,93 +1,77 @@
-import { Avatar } from "@chakra-ui/avatar";
-import { Image } from "@chakra-ui/image";
-import { Box, Flex, Text } from "@chakra-ui/layout";
-import { BsThreeDots } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import Actions from "./Actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import UserHeader from "../components/UserHeader";
+import { useParams } from "react-router-dom";
+import useShowToast from "../hooks/useShowToast";
+import { Flex, Spinner } from "@chakra-ui/react";
+import UserPost from "../components/UserPost";
+import useGetUserProfile from "../hooks/useGetUserProfile";
+import { useRecoilState } from "recoil";
+import postsAtom from "../atoms/postsAtom";
 
-// Adicione verifiedUsernames como uma propriedade
-const UserPost = ({ postImg, postTitle, likes, replies, username, verifiedUsernames }) => {
-	const [liked, setLiked] = useState(false);
-	const isVerified = verifiedUsernames.includes(username);
+// Lista de usernames para os quais o ícone de verificação deve ser exibido
+const VERIFIED_USERNAMES = ['user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'user7', 'user8'];
 
-	return (
-		<Link to={`/user/${username}/post/1`}>
-			<Flex gap={3} mb={4} py={5}>
-				<Flex flexDirection={"column"} alignItems={"center"}>
-					<Avatar size='md' name='Mark Zuckerberg' src='/zuck-avatar.png' />
-					<Box w='1px' h={"full"} bg='gray.light' my={2}></Box>
-					<Box position={"relative"} w={"full"}>
-						<Avatar
-							size='xs'
-							name='John doe'
-							src='https://bit.ly/dan-abramov'
-							position={"absolute"}
-							top={"0px"}
-							left='15px'
-							padding={"2px"}
-						/>
-						<Avatar
-							size='xs'
-							name='John doe'
-							src='https://bit.ly/sage-adebayo'
-							position={"absolute"}
-							bottom={"0px"}
-							right='-5px'
-							padding={"2px"}
-						/>
-						<Avatar
-							size='xs'
-							name='John doe'
-							src='https://bit.ly/prosper-baba'
-							position={"absolute"}
-							bottom={"0px"}
-							left='4px'
-							padding={"2px"}
-						/>
-					</Box>
-				</Flex>
-				<Flex flex={1} flexDirection={"column"} gap={2}>
-					<Flex justifyContent={"space-between"} w={"full"}>
-						<Flex w={"full"} alignItems={"center"}>
-							<Text fontSize={"sm"} fontWeight={"bold"}>
-								{username}
-							</Text>
-							{/* Renderize o ícone de verificação apenas se o username estiver na lista de verificados */}
-							{isVerified && <Image src='/verified.png' w={4} h={4} ml={1} />}
-						</Flex>
-						<Flex gap={4} alignItems={"center"}>
-							<Text fontStyle={"sm"} color={"gray.light"}>
-								1d
-							</Text>
-							<BsThreeDots />
-						</Flex>
-					</Flex>
+const UserPage = () => {
+    const { user, loading } = useGetUserProfile();
+    const { username } = useParams();
+    const showToast = useShowToast();
+    const [posts, setPosts] = useRecoilState(postsAtom);
+    const [fetchingPosts, setFetchingPosts] = useState(true);
 
-					<Text fontSize={"sm"}>{postTitle}</Text>
-					{postImg && (
-						<Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.light"}>
-							<Image src={postImg} w={"full"} />
-						</Box>
-					)}
+    useEffect(() => {
+        const getPosts = async () => {
+            if (!user) return;
+            setFetchingPosts(true);
+            try {
+                const res = await fetch(`/api/posts/user/${username}`);
+                const data = await res.json();
+                setPosts(data);
+            } catch (error) {
+                showToast("Error", error.message, "error");
+                setPosts([]);
+            } finally {
+                setFetchingPosts(false);
+            }
+        };
 
-					<Flex gap={3} my={1}>
-						<Actions liked={liked} setLiked={setLiked} />
-					</Flex>
+        getPosts();
+    }, [username, showToast, setPosts, user]);
 
-					<Flex gap={2} alignItems={"center"}>
-						<Text color={"gray.light"} fontSize='sm'>
-							{replies} replies
-						</Text>
-						<Box w={0.5} h={0.5} borderRadius={"full"} bg={"gray.light"}></Box>
-						<Text color={"gray.light"} fontSize='sm'>
-							{likes} likes
-						</Text>
-					</Flex>
-				</Flex>
-			</Flex>
-		</Link>
-	);
+    if (!user && loading) {
+        return (
+            <Flex justifyContent={"center"}>
+                <Spinner size={"xl"} />
+            </Flex>
+        );
+    }
+
+    if (!user && !loading) return <h1>Usuário não encontrado</h1>;
+
+    return (
+        <>
+            <UserHeader user={user} />
+
+            {fetchingPosts ? (
+                <Flex justifyContent={"center"} my={12}>
+                    <Spinner size={"xl"} />
+                </Flex>
+            ) : posts.length === 0 ? (
+                <h1>O usuário não possui publicações</h1>
+            ) : (
+                posts.map((post) => (
+                    <UserPost
+                        key={post._id}
+                        postImg={post.img}
+                        postTitle={post.text}
+                        likes={post.likes}
+                        replies={post.replies.length}
+                        username={user.username}
+                        verifiedUsernames={VERIFIED_USERNAMES} // Passe a lista de usernames verificados
+                    />
+                ))
+            )}
+        </>
+    );
 };
 
-export default UserPost;
+export default UserPage;
