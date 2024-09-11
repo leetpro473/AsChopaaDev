@@ -11,7 +11,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import postsAtom from "../atoms/postsAtom";
 
-const Post = ({ post, postedBy, verifiedUsernames }) => {
+const Post = ({ post, postedBy }) => {
 	const [user, setUser] = useState(null);
 	const showToast = useShowToast();
 	const currentUser = useRecoilValue(userAtom);
@@ -58,9 +58,6 @@ const Post = ({ post, postedBy, verifiedUsernames }) => {
 	};
 
 	if (!user) return null;
-
-	const isVerified = verifiedUsernames.includes(user.username); // Verifique se o usuário está na lista de verificados
-
 	return (
 		<Link to={`/${user.username}/post/${post._id}`}>
 			<Flex gap={3} mb={4} py={5}>
@@ -127,8 +124,7 @@ const Post = ({ post, postedBy, verifiedUsernames }) => {
 							>
 								{user?.username}
 							</Text>
-							{/* Renderize o ícone de verificação apenas se o username estiver na lista de verificados */}
-							{isVerified && <Image src='/verified.png' w={4} h={4} ml={1} />}
+							<Image src='/verified.png' w={4} h={4} ml={1} />
 						</Flex>
 						<Flex gap={4} alignItems={"center"}>
 							<Text fontSize={"xs"} width={36} textAlign={"right"} color={"gray.light"}>
