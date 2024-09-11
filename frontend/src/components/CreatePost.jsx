@@ -101,12 +101,12 @@ const CreatePost = () => {
 				<ModalOverlay />
 
 				<ModalContent>
-					<ModalHeader>Create Post</ModalHeader>
+					<ModalHeader>Criar publicação</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody pb={6}>
 						<FormControl>
 							<Textarea
-								placeholder='Post content goes here..'
+								placeholder='Oque está pensando?'
 								onChange={handleTextChange}
 								value={postText}
 							/>
@@ -125,7 +125,7 @@ const CreatePost = () => {
 
 						{imgUrl && (
 							<Flex mt={5} w={"full"} position={"relative"}>
-								<Image src={imgUrl} alt='Selected img' />
+								<Image src={imgUrl} alt='Imagem selecionada!' />
 								<CloseButton
 									onClick={() => {
 										setImgUrl("");
