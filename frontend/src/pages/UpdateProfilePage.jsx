@@ -46,14 +46,14 @@ export default function UpdateProfilePage() {
 			});
 			const data = await res.json(); // updated user object
 			if (data.error) {
-				showToast("Error", data.error, "error");
+				showToast("Ocorreu um erro", data.error, "error");
 				return;
 			}
-			showToast("Success", "Profile updated successfully", "success");
+			showToast("Successo", "Perfil atualizado com sucesso", "success");
 			setUser(data);
 			localStorage.setItem("user-threads", JSON.stringify(data));
 		} catch (error) {
-			showToast("Error", error, "error");
+			showToast("Ocorreu um erro", error, "error");
 		} finally {
 			setUpdating(false);
 		}
@@ -71,7 +71,7 @@ export default function UpdateProfilePage() {
 					p={6}
 				>
 					<Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-						User Profile Edit
+					Edição de perfil de usuário
 					</Heading>
 					<FormControl id='userName'>
 						<Stack direction={["column", "row"]} spacing={6}>
@@ -80,16 +80,16 @@ export default function UpdateProfilePage() {
 							</Center>
 							<Center w='full'>
 								<Button w='full' onClick={() => fileRef.current.click()}>
-									Change Avatar
+								Alterar Foto
 								</Button>
 								<Input type='file' hidden ref={fileRef} onChange={handleImageChange} />
 							</Center>
 						</Stack>
 					</FormControl>
 					<FormControl>
-						<FormLabel>Full name</FormLabel>
+						<FormLabel>Nome completo</FormLabel>
 						<Input
-							placeholder='John Doe'
+							placeholder='Reliquia'
 							value={inputs.name}
 							onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -97,9 +97,9 @@ export default function UpdateProfilePage() {
 						/>
 					</FormControl>
 					<FormControl>
-						<FormLabel>User name</FormLabel>
+						<FormLabel>Nome de usuário</FormLabel>
 						<Input
-							placeholder='johndoe'
+							placeholder='ReliquiaOficial'
 							value={inputs.username}
 							onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -107,9 +107,9 @@ export default function UpdateProfilePage() {
 						/>
 					</FormControl>
 					<FormControl>
-						<FormLabel>Email address</FormLabel>
+						<FormLabel>Endereço de email</FormLabel>
 						<Input
-							placeholder='your-email@example.com'
+							placeholder='reliquia.app@gmail.com'
 							value={inputs.email}
 							onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -119,7 +119,7 @@ export default function UpdateProfilePage() {
 					<FormControl>
 						<FormLabel>Bio</FormLabel>
 						<Input
-							placeholder='Your bio.'
+							placeholder='Sua bio.'
 							value={inputs.bio}
 							onChange={(e) => setInputs({ ...inputs, bio: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -127,9 +127,9 @@ export default function UpdateProfilePage() {
 						/>
 					</FormControl>
 					<FormControl>
-						<FormLabel>Password</FormLabel>
+						<FormLabel>Senha</FormLabel>
 						<Input
-							placeholder='password'
+							placeholder='Senha'
 							value={inputs.password}
 							onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
 							_placeholder={{ color: "gray.500" }}
@@ -145,7 +145,7 @@ export default function UpdateProfilePage() {
 								bg: "red.500",
 							}}
 						>
-							Cancel
+							Cancelar
 						</Button>
 						<Button
 							bg={"green.400"}
@@ -157,7 +157,7 @@ export default function UpdateProfilePage() {
 							type='submit'
 							isLoading={updating}
 						>
-							Submit
+							Salvar
 						</Button>
 					</Stack>
 				</Stack>
