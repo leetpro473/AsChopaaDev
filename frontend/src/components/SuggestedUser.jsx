@@ -31,7 +31,7 @@ const SuggestedUser = ({ user }) => {
 					opacity: ".8",
 				}}
 			>
-				{following ? "Unfollow" : "Follow"}
+				{following ? "Parar de Seguir" : "Seguir"}
 			</Button>
 		</Flex>
 	);
