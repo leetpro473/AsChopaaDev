@@ -26,22 +26,22 @@ const useFollowUnfollow = (user) => {
 			});
 			const data = await res.json();
 			if (data.error) {
-				showToast("Error", data.error, "error");
+				showToast("Ocorreu um erro", data.error, "error");
 				return;
 			}
 
 			if (following) {
-				showToast("Success", `Unfollowed ${user.name}`, "success");
+				showToast("Successo", `Parou de seguir ${user.name}`, "success");
 				user.followers.pop(); // simulate removing from followers
 			} else {
-				showToast("Success", `Followed ${user.name}`, "success");
+				showToast("Successo", `Seguiu ${user.name}`, "success");
 				user.followers.push(currentUser?._id); // simulate adding to followers
 			}
 			setFollowing(!following);
 
 			console.log(data);
 		} catch (error) {
-			showToast("Error", error, "error");
+			showToast("Ocorreu um erro", error, "error");
 		} finally {
 			setUpdating(false);
 		}
