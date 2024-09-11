@@ -21,7 +21,7 @@ const UserHeader = ({ user }) => {
 			toast({
 				title: "Success.",
 				status: "success",
-				description: "Profile link copied.",
+				description: "Link do perfil copiado.",
 				duration: 3000,
 				isClosable: true,
 			});
@@ -38,7 +38,7 @@ const UserHeader = ({ user }) => {
 					<Flex gap={2} alignItems={"center"}>
 						<Text fontSize={"sm"}>{user.username}</Text>
 						<Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
-							threads.net
+							aschopaa.com.br
 						</Text>
 					</Flex>
 				</Box>
@@ -70,19 +70,19 @@ const UserHeader = ({ user }) => {
 
 			{currentUser?._id === user._id && (
 				<Link as={RouterLink} to='/update'>
-					<Button size={"sm"}>Update Profile</Button>
+					<Button size={"sm"}>Atualizar perfil</Button>
 				</Link>
 			)}
 			{currentUser?._id !== user._id && (
 				<Button size={"sm"} onClick={handleFollowUnfollow} isLoading={updating}>
-					{following ? "Unfollow" : "Follow"}
+					{following ? "Parar de Seguir" : "Seguir"}
 				</Button>
 			)}
 			<Flex w={"full"} justifyContent={"space-between"}>
 				<Flex gap={2} alignItems={"center"}>
 					<Text color={"gray.light"}>{user.followers.length} followers</Text>
 					<Box w='1' h='1' bg={"gray.light"} borderRadius={"full"}></Box>
-					<Link color={"gray.light"}>instagram.com</Link>
+					<Link color={"gray.light"}>aschopaa.com.br</Link>
 				</Flex>
 				<Flex>
 					<Box className='icon-container'>
@@ -96,7 +96,7 @@ const UserHeader = ({ user }) => {
 							<Portal>
 								<MenuList bg={"gray.dark"}>
 									<MenuItem bg={"gray.dark"} onClick={copyURL}>
-										Copy link
+									Copiar link
 									</MenuItem>
 								</MenuList>
 							</Portal>
@@ -107,7 +107,7 @@ const UserHeader = ({ user }) => {
 
 			<Flex w={"full"}>
 				<Flex flex={1} borderBottom={"1.5px solid white"} justifyContent={"center"} pb='3' cursor={"pointer"}>
-					<Text fontWeight={"bold"}> Threads</Text>
+					<Text fontWeight={"bold"}> Reliquia</Text>
 				</Flex>
 				{/* <Flex
 					flex={1}
