@@ -10,6 +10,9 @@ import userAtom from "../atoms/userAtom";
 import { Link as RouterLink } from "react-router-dom";
 import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
+// Lista de usernames verificados
+const VERIFIED_USERNAMES = ['luischavoso.7', 'anotherUser', 'moreUsers'];
+
 const UserHeader = ({ user }) => {
 	const toast = useToast();
 	const currentUser = useRecoilValue(userAtom); // logged in user
@@ -32,9 +35,17 @@ const UserHeader = ({ user }) => {
 		<VStack gap={4} alignItems={"start"}>
 			<Flex justifyContent={"space-between"} w={"full"}>
 				<Box>
-					<Text fontSize={"2xl"} fontWeight={"bold"}>
-						{user.name}
-					</Text>
+					<Flex alignItems={"center"}>
+						<Text fontSize={"2xl"} fontWeight={"bold"}>
+							{user.name}
+						</Text>
+						{/* Condicional para mostrar o ícone de verificação */}
+						{VERIFIED_USERNAMES.includes(user.username) && (
+							<Box ml={2}>
+								<img src='/verified.png' alt='Verified' width={16} height={16} />
+							</Box>
+						)}
+					</Flex>
 					<Flex gap={2} alignItems={"center"}>
 						<Text fontSize={"sm"}>{user.username}</Text>
 						<Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
@@ -96,7 +107,7 @@ const UserHeader = ({ user }) => {
 							<Portal>
 								<MenuList bg={"gray.dark"}>
 									<MenuItem bg={"gray.dark"} onClick={copyURL}>
-									Copiar link
+										Copiar link
 									</MenuItem>
 								</MenuList>
 							</Portal>
