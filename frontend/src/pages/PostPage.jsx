@@ -11,18 +11,6 @@ import userAtom from "../atoms/userAtom";
 import { DeleteIcon } from "@chakra-ui/icons";
 import postsAtom from "../atoms/postsAtom";
 
-// Lista de usernames que devem exibir o ícone 'verified.png'
-const verifiedUsernames = [
-	"user1",
-	"user2",
-	"user3",
-	"user4",
-	"user5",
-	"user6",
-	"user7",
-	"user8", // Adicione quantos usernames quiser aqui
-];
-
 const PostPage = () => {
 	const { user, loading } = useGetUserProfile();
 	const [posts, setPosts] = useRecoilState(postsAtom);
@@ -90,10 +78,7 @@ const PostPage = () => {
 						<Text fontSize={"sm"} fontWeight={"bold"}>
 							{user.username}
 						</Text>
-						{/* Renderize o ícone de verificação apenas se o username estiver na lista de usernames verificados */}
-						{verifiedUsernames.includes(user.username) && (
-							<Image src='/verified.png' w='4' h={4} ml={4} />
-						)}
+						<Image src='/verified.png' w='4' h={4} ml={4} />
 					</Flex>
 				</Flex>
 				<Flex gap={4} alignItems={"center"}>
