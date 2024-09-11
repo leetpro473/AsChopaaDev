@@ -43,13 +43,13 @@ const UserPage = () => {
 		);
 	}
 
-	if (!user && !loading) return <h1>User not found</h1>;
+	if (!user && !loading) return <h1>Usuário não encontrado</h1>;
 
 	return (
 		<>
 			<UserHeader user={user} />
 
-			{!fetchingPosts && posts.length === 0 && <h1>User has not posts.</h1>}
+			{!fetchingPosts && posts.length === 0 && <h1>O usuário não possui publicações</h1>}
 			{fetchingPosts && (
 				<Flex justifyContent={"center"} my={12}>
 					<Spinner size={"xl"} />
