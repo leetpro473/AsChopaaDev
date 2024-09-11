@@ -62,7 +62,6 @@ const UserPage = () => {
                     <Post
                         key={post._id}
                         post={post}
-                        postedBy={post.postedBy}
                         verifiedUsernames={VERIFIED_USERNAMES}
                     />
                 ))
