@@ -31,11 +31,11 @@ export const SettingsPage = () => {
 	return (
 		<>
 			<Text my={1} fontWeight={"bold"}>
-				Freeze Your Account
+			Bloquear sua conta
 			</Text>
-			<Text my={1}>You can unfreeze your account anytime by logging in.</Text>
+			<Text my={1}>Você pode desbloquear sua conta a qualquer momento fazendo login novamente.</Text>
 			<Button size={"sm"} colorScheme='red' onClick={freezeAccount}>
-				Freeze
+				Bloquear 
 			</Button>
 		</>
 	);
