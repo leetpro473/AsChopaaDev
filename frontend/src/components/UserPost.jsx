@@ -77,7 +77,7 @@ const UserPost = ({ postImg, postTitle, likes, replies }) => {
 						</Text>
 						<Box w={0.5} h={0.5} borderRadius={"full"} bg={"gray.light"}></Box>
 						<Text color={"gray.light"} fontSize='sm'>
-							{likes} curtidas
+							{likes} curtidas.
 						</Text>
 					</Flex>
 				</Flex>
