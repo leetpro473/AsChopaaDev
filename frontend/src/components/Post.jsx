@@ -11,8 +11,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import postsAtom from "../atoms/postsAtom";
 
-// Lista de usuários específicos que devem ter o ícone de verificação
-const VERIFIED_USERNAMES = ['luischavoso.7'];
+// Lista de usernames para os quais o ícone de verificação deve ser exibido
+const VERIFIED_USERNAMES = ['luischavoso.7', 'anotherUser', 'moreUsers']; 
 
 const Post = ({ post, postedBy }) => {
 	const [user, setUser] = useState(null);
@@ -127,7 +127,7 @@ const Post = ({ post, postedBy }) => {
 							>
 								{user?.username}
 							</Text>
-							{/* Verificação se o usuário está na lista de verificados */}
+							{/* Verifica se o username está na lista de verificados */}
 							{VERIFIED_USERNAMES.includes(user.username) && (
 								<Image src='/verified.png' w={4} h={4} ml={1} />
 							)}
