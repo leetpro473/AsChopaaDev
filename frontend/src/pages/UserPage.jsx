@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import postsAtom from "../atoms/postsAtom";
 
 // Lista de usernames para os quais o ícone de verificação deve ser exibido
-const VERIFIED_USERNAMES = ['luischavoso.7'];
+const VERIFIED_USERNAMES = ['user1', 'user2', 'user3', 'user4', 'user5', 'user6', 'user7', 'user8'];
 
 const UserPage = () => {
     const { user, loading } = useGetUserProfile();
@@ -62,6 +62,7 @@ const UserPage = () => {
                     <Post
                         key={post._id}
                         post={post}
+                        postedBy={post.postedBy}
                         verifiedUsernames={VERIFIED_USERNAMES}
                     />
                 ))
