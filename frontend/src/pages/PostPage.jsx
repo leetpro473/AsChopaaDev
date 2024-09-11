@@ -21,11 +21,11 @@ const PostPage = () => {
     const currentUser = useRecoilValue(userAtom); // Usuário atual do estado global
     const navigate = useNavigate();
 
-    const currentPost = posts.find(post => post._id === pid); // Obtém o post atual pela ID
+    // Obtém o post atual pela ID
+    const currentPost = posts.find(post => post._id === pid);
 
     useEffect(() => {
         const getPost = async () => {
-            setPosts([]);
             try {
                 const res = await fetch(`/api/posts/${pid}`);
                 const data = await res.json();
@@ -60,9 +60,9 @@ const PostPage = () => {
         }
     };
 
-    if (!user && loading) {
+    if (loading) {
         return (
-            <Flex justifyContent={"center"}>
+            <Flex justifyContent={"center"} mt={10}>
                 <Spinner size={"xl"} />
             </Flex>
         );
@@ -71,22 +71,22 @@ const PostPage = () => {
     if (!currentPost) return null;
 
     return (
-        <>
-            <Flex>
-                <Flex w={"full"} alignItems={"center"} gap={3}>
+        <Box maxW="container.md" mx="auto" p={4}>
+            <Flex direction="column" gap={4}>
+                <Flex alignItems="center" gap={3}>
                     <Avatar src={user.profilePic} size={"md"} name={user.username} />
-                    <Flex alignItems={"center"}>
+                    <Flex direction="column">
                         <Text fontSize={"sm"} fontWeight={"bold"}>
                             {user.username}
                         </Text>
                         {/* Verifica se o username está na lista de verificados */}
                         {VERIFIED_USERNAMES.includes(user.username) && (
-                            <Image src='/verified.png' w='4' h={4} ml={4} />
+                            <Image src='/verified.png' w='4' h={4} ml={2} />
                         )}
                     </Flex>
                 </Flex>
-                <Flex gap={4} alignItems={"center"}>
-                    <Text fontSize={"xs"} width={36} textAlign={"right"} color={"gray.light"}>
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Text fontSize={"xs"} color={"gray.500"}>
                         {formatDistanceToNow(new Date(currentPost.createdAt))} atrás
                     </Text>
 
@@ -94,39 +94,37 @@ const PostPage = () => {
                         <DeleteIcon size={20} cursor={"pointer"} onClick={handleDeletePost} />
                     )}
                 </Flex>
-            </Flex>
-
-            <Text my={3}>{currentPost.text}</Text>
-
-            {currentPost.img && (
-                <Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.light"}>
-                    <Image src={currentPost.img} w={"full"} />
-                </Box>
-            )}
-
-            <Flex gap={3} my={3}>
-                <Actions post={currentPost} />
-            </Flex>
-
-            <Divider my={4} />
-
-            <Flex justifyContent={"space-between"}>
-                <Flex gap={2} alignItems={"center"}>
-                    <Text fontSize={"2xl"}>👋</Text>
-                    <Text color={"gray.light"}>Get the app to like, reply and post.</Text>
+                <Text my={3}>{currentPost.text}</Text>
+                {currentPost.img && (
+                    <Box borderRadius={6} overflow={"hidden"} border={"1px solid"} borderColor={"gray.200"}>
+                        <Image src={currentPost.img} w={"full"} />
+                    </Box>
+                )}
+                <Flex gap={3} my={3}>
+                    <Actions post={currentPost} />
                 </Flex>
-                <Button>Get</Button>
+                <Divider my={4} />
+                <Flex justifyContent={"space-between"} alignItems="center">
+                    <Flex gap={2} alignItems={"center"}>
+                        <Text fontSize={"2xl"}>👋</Text>
+                        <Text color={"gray.500"}>Get the app to like, reply and post.</Text>
+                    </Flex>
+                    <Button>Get</Button>
+                </Flex>
+                <Divider my={4} />
+                {currentPost.replies.length > 0 ? (
+                    currentPost.replies.map((reply) => (
+                        <Comment
+                            key={reply._id}
+                            reply={reply}
+                            lastReply={reply._id === currentPost.replies[currentPost.replies.length - 1]._id}
+                        />
+                    ))
+                ) : (
+                    <Text color="gray.500">No replies yet</Text>
+                )}
             </Flex>
-
-            <Divider my={4} />
-            {currentPost.replies.map((reply) => (
-                <Comment
-                    key={reply._id}
-                    reply={reply}
-                    lastReply={reply._id === currentPost.replies[currentPost.replies.length - 1]._id}
-                />
-            ))}
-        </>
+        </Box>
     );
 };
 
