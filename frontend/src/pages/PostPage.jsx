@@ -14,15 +14,14 @@ import postsAtom from "../atoms/postsAtom";
 const VERIFIED_USERNAMES = ['luischavoso.7'];
 
 const PostPage = () => {
-    const { user, loading } = useGetUserProfile(); // Hook para obter o perfil do usuário
+    const { user, loading } = useGetUserProfile();
     const [posts, setPosts] = useRecoilState(postsAtom);
     const showToast = useShowToast();
     const { pid } = useParams();
-    const currentUser = useRecoilValue(userAtom); // Usuário atual do estado global
+    const currentUser = useRecoilValue(userAtom);
     const navigate = useNavigate();
 
-    // Obtém o post atual pela ID
-    const currentPost = posts.find(post => post._id === pid);
+    const currentPost = posts.find(post => post._id === pid); // Obtém o post atual pela ID
 
     useEffect(() => {
         const getPost = async () => {
@@ -70,17 +69,18 @@ const PostPage = () => {
 
     if (!currentPost) return null;
 
+    const isVerified = VERIFIED_USERNAMES.includes(currentPost.username);
+
     return (
         <Box maxW="container.md" mx="auto" p={4}>
             <Flex direction="column" gap={4}>
                 <Flex alignItems="center" gap={3}>
-                    <Avatar src={user.profilePic} size={"md"} name={user.username} />
+                    <Avatar src={currentPost.userProfilePic || user.profilePic} size={"md"} name={currentPost.username} />
                     <Flex direction="column">
                         <Text fontSize={"sm"} fontWeight={"bold"}>
-                            {user.username}
+                            {currentPost.username}
                         </Text>
-                        {/* Verifica se o username está na lista de verificados */}
-                        {VERIFIED_USERNAMES.includes(user.username) && (
+                        {isVerified && (
                             <Image src='/verified.png' w='4' h={4} ml={2} />
                         )}
                     </Flex>
@@ -89,8 +89,7 @@ const PostPage = () => {
                     <Text fontSize={"xs"} color={"gray.500"}>
                         {formatDistanceToNow(new Date(currentPost.createdAt))} atrás
                     </Text>
-
-                    {currentUser?._id === user._id && (
+                    {currentUser?._id === currentPost.userId && (
                         <DeleteIcon size={20} cursor={"pointer"} onClick={handleDeletePost} />
                     )}
                 </Flex>
