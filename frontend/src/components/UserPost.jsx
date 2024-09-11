@@ -73,11 +73,11 @@ const UserPost = ({ postImg, postTitle, likes, replies }) => {
 
 					<Flex gap={2} alignItems={"center"}>
 						<Text color={"gray.light"} fontSize='sm'>
-							{replies} replies
+							{replies} comentários
 						</Text>
 						<Box w={0.5} h={0.5} borderRadius={"full"} bg={"gray.light"}></Box>
 						<Text color={"gray.light"} fontSize='sm'>
-							{likes} likes
+							{likes} curtidas
 						</Text>
 					</Flex>
 				</Flex>
