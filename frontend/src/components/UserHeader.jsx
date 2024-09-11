@@ -11,7 +11,7 @@ import { Link as RouterLink } from "react-router-dom";
 import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
 // Lista de usernames verificados
-const VERIFIED_USERNAMES = ['luischavoso.7', 'anotherUser', 'moreUsers'];
+const VERIFIED_USERNAMES = ['luischavoso.7'];
 
 const UserHeader = ({ user }) => {
 	const toast = useToast();
