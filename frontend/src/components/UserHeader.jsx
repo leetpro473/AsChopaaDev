@@ -10,9 +10,6 @@ import userAtom from "../atoms/userAtom";
 import { Link as RouterLink } from "react-router-dom";
 import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
-// Lista de usernames verificados
-const VERIFIED_USERNAMES = ['luischavoso.7'];
-
 const UserHeader = ({ user }) => {
 	const toast = useToast();
 	const currentUser = useRecoilValue(userAtom); // logged in user
@@ -24,7 +21,7 @@ const UserHeader = ({ user }) => {
 			toast({
 				title: "Success.",
 				status: "success",
-				description: "Link do perfil copiado.",
+				description: "Profile link copied.",
 				duration: 3000,
 				isClosable: true,
 			});
@@ -35,21 +32,13 @@ const UserHeader = ({ user }) => {
 		<VStack gap={4} alignItems={"start"}>
 			<Flex justifyContent={"space-between"} w={"full"}>
 				<Box>
-					<Flex alignItems={"center"}>
-						<Text fontSize={"2xl"} fontWeight={"bold"}>
-							{user.name}
-						</Text>
-						{/* Condicional para mostrar o ícone de verificação */}
-						{VERIFIED_USERNAMES.includes(user.username) && (
-							<Box ml={2}>
-								<img src='/verified.png' alt='Verified' width={16} height={16} />
-							</Box>
-						)}
-					</Flex>
+					<Text fontSize={"2xl"} fontWeight={"bold"}>
+						{user.name}
+					</Text>
 					<Flex gap={2} alignItems={"center"}>
 						<Text fontSize={"sm"}>{user.username}</Text>
 						<Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
-							aschopaa.com.br
+							threads.net
 						</Text>
 					</Flex>
 				</Box>
@@ -81,19 +70,19 @@ const UserHeader = ({ user }) => {
 
 			{currentUser?._id === user._id && (
 				<Link as={RouterLink} to='/update'>
-					<Button size={"sm"}>Atualizar perfil</Button>
+					<Button size={"sm"}>Update Profile</Button>
 				</Link>
 			)}
 			{currentUser?._id !== user._id && (
 				<Button size={"sm"} onClick={handleFollowUnfollow} isLoading={updating}>
-					{following ? "Parar de Seguir" : "Seguir"}
+					{following ? "Unfollow" : "Follow"}
 				</Button>
 			)}
 			<Flex w={"full"} justifyContent={"space-between"}>
 				<Flex gap={2} alignItems={"center"}>
-					<Text color={"gray.light"}>{user.followers.length} seguidores</Text>
+					<Text color={"gray.light"}>{user.followers.length} followers</Text>
 					<Box w='1' h='1' bg={"gray.light"} borderRadius={"full"}></Box>
-					<Link color={"gray.light"}>aschopaa.com.br</Link>
+					<Link color={"gray.light"}>instagram.com</Link>
 				</Flex>
 				<Flex>
 					<Box className='icon-container'>
@@ -107,7 +96,7 @@ const UserHeader = ({ user }) => {
 							<Portal>
 								<MenuList bg={"gray.dark"}>
 									<MenuItem bg={"gray.dark"} onClick={copyURL}>
-										Copiar link
+										Copy link
 									</MenuItem>
 								</MenuList>
 							</Portal>
@@ -118,7 +107,7 @@ const UserHeader = ({ user }) => {
 
 			<Flex w={"full"}>
 				<Flex flex={1} borderBottom={"1.5px solid white"} justifyContent={"center"} pb='3' cursor={"pointer"}>
-					<Text fontWeight={"bold"}> Todos os direitos Reservados</Text>
+					<Text fontWeight={"bold"}> Threads</Text>
 				</Flex>
 				{/* <Flex
 					flex={1}
